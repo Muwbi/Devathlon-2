@@ -1,14 +1,16 @@
 package com.muwbi.devathlon;
 
 import com.muwbi.devathlon.clazz.Game;
+import com.muwbi.devathlon.command.GameStateCommand;
 import com.muwbi.devathlon.config.MapConfig;
 import com.muwbi.devathlon.listener.GameStateChangeListener;
 import com.muwbi.devathlon.listener.PlayerJoinListener;
-import com.muwbi.devathlon.listener.PlayerLoginListener;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.ScoreboardManager;
 
 
 /**
@@ -20,6 +22,9 @@ public class SearchAndDestroy extends JavaPlugin {
     private static SearchAndDestroy instance;
 
     @Getter
+    private Scoreboard scoreboard;
+
+    @Getter
     private Game game;
 
     @Override
@@ -29,7 +34,10 @@ public class SearchAndDestroy extends JavaPlugin {
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents( new GameStateChangeListener(), this );
         pluginManager.registerEvents( new PlayerJoinListener(), this );
-        pluginManager.registerEvents( new PlayerLoginListener(), this );
+
+        getCommand( "gamestate" ).setExecutor( new GameStateCommand() );
+
+        scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
         game = new Game( MapConfig.DEFAULT );
         System.out.println("Loaded " + getDescription().getName() + " | Version: " + getDescription().getVersion() + " | Description: " + getDescription().getDescription());
