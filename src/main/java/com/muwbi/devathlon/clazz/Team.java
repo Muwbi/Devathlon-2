@@ -3,6 +3,10 @@ package com.muwbi.devathlon.clazz;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
+import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +22,19 @@ public enum Team {
     CT( "Counter-Terrorists", "Counter-Terroristen", ChatColor.BLUE );
 
     @Getter
+    private static Scoreboard scoreboard;
+
+    static {
+        scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+    }
+
+    @Getter
+    private final org.bukkit.scoreboard.Team scoreboardTeam;
+
+    @Getter
+    private final Objective pointsObjective;
+
+    @Getter
     private final String teamName;
 
     @Getter
@@ -29,18 +46,45 @@ public enum Team {
     @Getter
     private final List<UUID> members = new ArrayList<>();
 
+
     private Team( String name, String fullName, ChatColor color ) {
         teamName = name;
         fullTeamName = fullName;
         teamColor = color;
+
+        scoreboardTeam = getScoreboard().registerNewTeam( name() );
+        scoreboardTeam.setPrefix( name() );
+        scoreboardTeam.setAllowFriendlyFire( false );
+
+        pointsObjective = getScoreboard().registerNewObjective( "points", "dummy" );
+        pointsObjective.setDisplaySlot( DisplaySlot.PLAYER_LIST );
+        pointsObjective.setDisplayName( "Punkte" );
     }
 
     public boolean addMember( UUID uuid ) {
-        return !members.contains( uuid ) && members.add( uuid );
+        if ( members.contains( uuid ) ) {
+            return false;
+        }
+
+        members.add( uuid );
+        scoreboardTeam.addEntry( Bukkit.getPlayer( uuid ).getName() );
+
+        getPointsObjective().getScore( Bukkit.getPlayer( uuid ).getName() ).setScore( 0 );
+
+        Bukkit.getPlayer( uuid ).setScoreboard( getScoreboard() );
+
+        return true;
     }
 
     public boolean removeMember( UUID uuid ) {
-        return !members.contains( uuid ) && members.remove( uuid );
+        if ( !members.contains( uuid ) ) {
+            return false;
+        }
+
+        members.remove( uuid );
+        scoreboardTeam.removeEntry( Bukkit.getPlayer( uuid ).getName() );
+
+        return true;
     }
 
     public List<UUID> getAliveMembers() {
@@ -57,6 +101,21 @@ public enum Team {
 
     public static Team getTeam( UUID uuid ) {
         return Team.T.getMembers().contains( uuid ) ? Team.T : ( Team.CT.getMembers().contains( uuid ) ? Team.CT : null );
+    }
+
+    public static void addPoints( UUID uuid, int value ) {
+        if ( !hasTeam( uuid ) ) {
+            return;
+        }
+
+        Score score = getTeam( uuid ).getPointsObjective().getScore( Bukkit.getPlayer( uuid ).getName() );
+        score.setScore( score.getScore() + value );
+    }
+
+    public static void clearTeam( UUID uuid ) {
+        for ( Team team : values() ) {
+            team.removeMember( uuid );
+        }
     }
 
 }

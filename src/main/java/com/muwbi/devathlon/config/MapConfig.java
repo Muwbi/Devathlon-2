@@ -1,5 +1,6 @@
 package com.muwbi.devathlon.config;
 
+import com.muwbi.devathlon.clazz.Team;
 import lombok.Getter;
 import net.cubespace.Yamler.Config.Config;
 import net.cubespace.Yamler.Config.InvalidConfigurationException;
@@ -8,6 +9,7 @@ import org.bukkit.Location;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Muwbi
@@ -27,12 +29,6 @@ public class MapConfig extends Config {
 
     public MapConfig( File configFile ) {
         CONFIG_FILE = configFile;
-
-        try {
-            addConverter( SimpleLocationConverter.class );
-        } catch ( InvalidConverterException e ) {
-            e.printStackTrace();
-        }
     }
 
     @Getter
@@ -42,6 +38,6 @@ public class MapConfig extends Config {
     private Location bombLocation;
 
     @Getter
-    private List<Location> teamSpawns;
+    private Map<String, Location> teamSpawns;
 
 }

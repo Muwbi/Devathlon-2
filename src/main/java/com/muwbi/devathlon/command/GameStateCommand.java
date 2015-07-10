@@ -2,10 +2,12 @@ package com.muwbi.devathlon.command;
 
 import com.muwbi.devathlon.SearchAndDestroy;
 import com.muwbi.devathlon.clazz.GameState;
+import com.muwbi.devathlon.clazz.Team;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 /**
  * Created by Muwbi
@@ -24,6 +26,10 @@ public class GameStateCommand implements CommandExecutor {
                     case "ingame_planted":
                         gameState = GameState.valueOf( args[0].toUpperCase() );
                         break;
+                    case "addpoint":
+                        if ( commandSender instanceof Player ) {
+                            Team.addPoints( ( (Player) commandSender ).getUniqueId(), 3 );
+                        }
                     default:
                         gameState = GameState.LOBBY;
                         break;
