@@ -1,7 +1,6 @@
 package com.muwbi.devathlon.config;
 
 import com.muwbi.devathlon.SearchAndDestroy;
-import com.muwbi.devathlon.clazz.Team;
 import lombok.Getter;
 import net.cubespace.Yamler.Config.Config;
 import net.cubespace.Yamler.Config.InvalidConfigurationException;
@@ -11,7 +10,6 @@ import org.bukkit.Location;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,7 +20,7 @@ public class MapConfig extends Config {
     public static final MapConfig DEFAULT;
 
     static {
-        DEFAULT = new MapConfig( new File( new File( SearchAndDestroy.getInstance().getDataFolder(), "maps"), "default.yml" ) );
+        DEFAULT = new MapConfig( new File( new File( SearchAndDestroy.getInstance().getDataFolder(), "maps" ), "default.yml" ) );
         try {
             DEFAULT.init();
         } catch ( InvalidConfigurationException e ) {

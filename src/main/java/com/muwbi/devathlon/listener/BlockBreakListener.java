@@ -12,10 +12,10 @@ import org.bukkit.event.block.BlockBreakEvent;
 public class BlockBreakListener implements Listener {
 
     @EventHandler
-    public void onBreak(BlockBreakEvent event) {
+    public void onBreak( BlockBreakEvent event ) {
         GameState gameState = SearchAndDestroy.getInstance().getGame().getGameState();
-        if((gameState == GameState.INGAME || gameState == GameState.INGAME_PLANTED || gameState == GameState.WARMUP) && !event.getPlayer().isOp()) {
-            event.setCancelled(true);
+        if ( ( gameState == GameState.INGAME || gameState == GameState.INGAME_PLANTED || gameState == GameState.WARMUP ) && !event.getPlayer().isOp() ) {
+            event.setCancelled( true );
         }
     }
 }

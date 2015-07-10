@@ -19,7 +19,7 @@ public class Game {
     private GameState gameState = GameState.LOBBY;
 
     @Getter
-    private Team[] teams = new Team[] { Team.T, Team.CT };
+    private Team[] teams = new Team[]{Team.T, Team.CT};
 
     public Game( MapConfig config ) {
         mapConfig = config;

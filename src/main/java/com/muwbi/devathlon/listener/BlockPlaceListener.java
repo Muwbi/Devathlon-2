@@ -12,10 +12,10 @@ import org.bukkit.event.block.BlockPlaceEvent;
 public class BlockPlaceListener implements Listener {
 
     @EventHandler
-    public void onPlace(BlockPlaceEvent event) {
+    public void onPlace( BlockPlaceEvent event ) {
         GameState gameState = SearchAndDestroy.getInstance().getGame().getGameState();
-        if((gameState == GameState.INGAME || gameState == GameState.INGAME_PLANTED || gameState == GameState.WARMUP) && !event.getPlayer().isOp()) {
-            event.setCancelled(true);
+        if ( ( gameState == GameState.INGAME || gameState == GameState.INGAME_PLANTED || gameState == GameState.WARMUP ) && !event.getPlayer().isOp() ) {
+            event.setCancelled( true );
         }
     }
 }

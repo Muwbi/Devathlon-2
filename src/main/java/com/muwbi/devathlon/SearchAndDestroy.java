@@ -3,8 +3,6 @@ package com.muwbi.devathlon;
 import com.muwbi.devathlon.clazz.Game;
 import com.muwbi.devathlon.command.GameStateCommand;
 import com.muwbi.devathlon.config.MapConfig;
-import com.muwbi.devathlon.listener.GameStateChangeListener;
-import com.muwbi.devathlon.listener.PlayerJoinListener;
 import com.muwbi.devathlon.listener.*;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -38,13 +36,13 @@ public class SearchAndDestroy extends JavaPlugin {
         PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents( new GameStateChangeListener(), this );
         pluginManager.registerEvents( new PlayerJoinListener(), this );
-        pluginManager.registerEvents( new BlockPlaceListener(), this);
-        pluginManager.registerEvents( new BlockBreakListener(), this);
-        pluginManager.registerEvents( new AsyncPlayerChatListener(), this);
-        pluginManager.registerEvents( new PlayerQuitListener(), this);
+        pluginManager.registerEvents( new BlockPlaceListener(), this );
+        pluginManager.registerEvents( new BlockBreakListener(), this );
+        pluginManager.registerEvents( new AsyncPlayerChatListener(), this );
+        pluginManager.registerEvents( new PlayerQuitListener(), this );
 
         game = new Game( MapConfig.DEFAULT );
-        System.out.println("Loaded " + getDescription().getName() + " | Version: " + getDescription().getVersion() + " | Description: " + getDescription().getDescription());
+        System.out.println( "Loaded " + getDescription().getName() + " | Version: " + getDescription().getVersion() + " | Description: " + getDescription().getDescription() );
     }
 
 
