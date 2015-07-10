@@ -2,6 +2,7 @@ package com.muwbi.devathlon;
 
 import com.muwbi.devathlon.clazz.Game;
 import com.muwbi.devathlon.config.MapConfig;
+import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
@@ -10,10 +11,16 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class SearchAndDestroy extends JavaPlugin {
 
-    Game game;
+    @Getter
+    private static SearchAndDestroy instance;
+
+    @Getter
+    private Game game;
 
     @Override
     public void onEnable() {
+        instance = this;
+
         game = new Game( MapConfig.DEFAULT );
     }
 
@@ -21,6 +28,5 @@ public class SearchAndDestroy extends JavaPlugin {
     public void onDisable() {
 
     }
-
 
 }

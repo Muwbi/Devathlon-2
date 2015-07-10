@@ -13,6 +13,8 @@ public class GameStateChangeEvent extends Event implements Cancellable {
 
     private HandlerList handlerList = new HandlerList();
 
+    private boolean cancelled;
+
     @Getter
     private final GameState previousState;
 
@@ -26,12 +28,12 @@ public class GameStateChangeEvent extends Event implements Cancellable {
 
     @Override
     public boolean isCancelled() {
-        return false;
+        return cancelled;
     }
 
     @Override
     public void setCancelled( boolean b ) {
-
+        cancelled = b;
     }
 
     @Override
