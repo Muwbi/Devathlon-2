@@ -21,18 +21,13 @@ public enum Team {
     T( "Terrorists", "Terroristen", ChatColor.RED ),
     CT( "Counter-Terrorists", "Counter-Terroristen", ChatColor.BLUE );
 
-    @Getter
     private static Scoreboard scoreboard;
-
-    static {
-        scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-    }
 
     @Getter
     private final org.bukkit.scoreboard.Team scoreboardTeam;
 
     @Getter
-    private final Objective pointsObjective;
+    private static Objective pointsObjective;
 
     @Getter
     private final String teamName;
@@ -53,12 +48,8 @@ public enum Team {
         teamColor = color;
 
         scoreboardTeam = getScoreboard().registerNewTeam( name() );
-        scoreboardTeam.setPrefix( name() );
+        scoreboardTeam.setPrefix( getTeamColor() + name() + ChatColor.GRAY + " | " + ChatColor.RESET );
         scoreboardTeam.setAllowFriendlyFire( false );
-
-        pointsObjective = getScoreboard().registerNewObjective( "points", "dummy" );
-        pointsObjective.setDisplaySlot( DisplaySlot.PLAYER_LIST );
-        pointsObjective.setDisplayName( "Punkte" );
     }
 
     public boolean addMember( UUID uuid ) {
@@ -108,7 +99,7 @@ public enum Team {
             return;
         }
 
-        Score score = getTeam( uuid ).getPointsObjective().getScore( Bukkit.getPlayer( uuid ).getName() );
+        Score score = getPointsObjective().getScore( Bukkit.getPlayer( uuid ).getName() );
         score.setScore( score.getScore() + value );
     }
 
@@ -116,6 +107,18 @@ public enum Team {
         for ( Team team : values() ) {
             team.removeMember( uuid );
         }
+    }
+
+    private static Scoreboard getScoreboard() {
+        if ( scoreboard == null ) {
+            scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+
+            pointsObjective = getScoreboard().registerNewObjective( "points", "dummy" );
+            pointsObjective.setDisplaySlot( DisplaySlot.PLAYER_LIST );
+            pointsObjective.setDisplayName( "Punkte" );
+        }
+
+        return scoreboard;
     }
 
 }
