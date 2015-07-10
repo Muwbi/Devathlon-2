@@ -32,7 +32,9 @@ public class SearchAndDestroy extends JavaPlugin {
         pluginManager.registerEvents( new PlayerLoginListener(), this );
 
         game = new Game( MapConfig.DEFAULT );
+        System.out.println("Loaded " + getDescription().getName() + " | Version: " + getDescription().getVersion() + " | Description: " + getDescription().getDescription());
     }
+
 
     @Override
     public void onDisable() {

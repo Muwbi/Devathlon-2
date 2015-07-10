@@ -1,5 +1,5 @@
 name: SearchAndDestroy
 version: 0.1
+description: In Search and Destroy you can play CS:GO and CoD in one game. Plant the bomb / Defuse the bomb!
 main: com.muwbi.devathlon.SearchAndDestroy
-authors: [Muwbi, Gelox_, ploxh]
-depends: [Yamler]
+authors: [Muwbi, Gelox_, ploxh, Tropadeira]
