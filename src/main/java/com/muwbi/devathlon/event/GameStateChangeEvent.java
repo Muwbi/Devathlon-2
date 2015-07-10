@@ -11,7 +11,7 @@ import org.bukkit.event.HandlerList;
  */
 public class GameStateChangeEvent extends Event implements Cancellable {
 
-    private HandlerList handlerList = new HandlerList();
+    private static HandlerList handlerList = new HandlerList();
 
     private boolean cancelled;
 
@@ -38,6 +38,10 @@ public class GameStateChangeEvent extends Event implements Cancellable {
 
     @Override
     public HandlerList getHandlers() {
+        return handlerList;
+    }
+
+    public static HandlerList getHandlerList() {
         return handlerList;
     }
 

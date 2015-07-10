@@ -34,14 +34,9 @@ public class SimpleLocationConverter implements Converter {
 
     @Override
     public Object fromConfig( Class type, Object section, ParameterizedType genericType ) throws Exception {
-        Map<String, Object> keyValueStore;
-        if ( section instanceof Map ) {
-            keyValueStore = (Map<String, Object>) section;
-        } else {
-            keyValueStore = (Map<String, Object>) ( (ConfigSection) section ).getRawMap();
-        }
+        Map<String, Object> locationMap = (Map<String, Object>) ((ConfigSection) section).getRawMap();
 
-        return new Location( Bukkit.getWorld( (String) keyValueStore.get( "world" ) ), (Double) keyValueStore.get( "x" ), (Double) keyValueStore.get( "y" ), (Double) keyValueStore.get( "z" ) );
+        return new Location( Bukkit.getWorld( (String) locationMap.get( "world" ) ), (Double) locationMap.get( "x" ), (Double) locationMap.get( "y" ), (Double) locationMap.get( "z" ) );
     }
 
     @Override

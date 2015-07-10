@@ -2,3 +2,4 @@ name: SearchAndDestroy
 version: 0.1
 main: com.muwbi.devathlon.SearchAndDestroy
 authors: [Muwbi, Gelox_, ploxh]
+depends: [Yamler]

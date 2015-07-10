@@ -16,7 +16,7 @@ public class Game {
 
     @Getter
     @Setter
-    private GameState gameState = GameState.WARMUP;
+    private GameState gameState = GameState.LOBBY;
 
     @Getter
     private Team[] teams = new Team[] { Team.T, Team.CT };

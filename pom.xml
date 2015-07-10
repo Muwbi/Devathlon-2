@@ -54,7 +54,7 @@
             <resource>
                 <targetPath>.</targetPath>
                 <filtering>true</filtering>
-                <directory>${baseDir}/src/main/resources/</directory>
+                <directory>${basedir}/src/main/resources</directory>
                 <includes>
                     <include>*</include>
                 </includes>

@@ -5,6 +5,7 @@ import com.muwbi.devathlon.clazz.GameState;
 import com.muwbi.devathlon.clazz.Team;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -28,6 +29,9 @@ public class PlayerJoinListener implements Listener {
                     player.kickPlayer( ChatColor.RED + "Error!" );
                 }
             }
+        } else {
+            event.setJoinMessage( null );
+            player.setGameMode( GameMode.SPECTATOR );
         }
     }
 
