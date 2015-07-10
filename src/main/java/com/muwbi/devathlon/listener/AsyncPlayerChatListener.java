@@ -15,10 +15,7 @@ public class AsyncPlayerChatListener implements Listener {
     public void onChat(AsyncPlayerChatEvent event) {
         Team team = Team.getTeam(event.getPlayer().getUniqueId());
         if( team != null ) {
-            if (event.getPlayer().isOp())
-                event.setFormat(ChatColor.GRAY + "> " + ChatColor.DARK_AQUA + "[" + team.getTeamColor() + team.toString() + ChatColor.DARK_AQUA + "] " + ChatColor.GOLD + "%s" + ChatColor.GRAY + ": " + ChatColor.WHITE + "%s");
-            else
-                event.setFormat(ChatColor.GRAY + "> " + ChatColor.DARK_AQUA + "[" + team.getTeamColor() + team.toString() + ChatColor.DARK_AQUA + "] " + ChatColor.DARK_GREEN + "%s" + ChatColor.GRAY + ": " + ChatColor.WHITE + "%s");
+            event.setFormat(ChatColor.GRAY + "> " + ChatColor.DARK_AQUA + "[" + team.getTeamColor() + team.toString() + ChatColor.DARK_AQUA + "] " + ChatColor.GOLD + "%s" + ChatColor.GRAY + ": " + ChatColor.WHITE + "%s");
         }
     }
 }
