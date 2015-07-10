@@ -31,6 +31,7 @@ public class SearchAndDestroy extends JavaPlugin {
         pluginManager.registerEvents( new BlockPlaceListener(), this);
         pluginManager.registerEvents( new BlockBreakListener(), this);
         pluginManager.registerEvents( new AsyncPlayerChatListener(), this);
+        pluginManager.registerEvents( new PlayerQuitListener(), this);
 
         game = new Game( MapConfig.DEFAULT );
         System.out.println("Loaded " + getDescription().getName() + " | Version: " + getDescription().getVersion() + " | Description: " + getDescription().getDescription());
