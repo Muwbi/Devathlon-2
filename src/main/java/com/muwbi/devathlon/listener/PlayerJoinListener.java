@@ -24,14 +24,17 @@ public class PlayerJoinListener implements Listener {
 
         player.getInventory().clear();
         player.setHealth( player.getMaxHealth() );
+        player.setSaturation( 20 );
         player.getActivePotionEffects().forEach( potionEffect -> player.removePotionEffect( potionEffect.getType() ) );
 
         player.setScoreboard( Team.getScoreboard() );
 
         if ( SearchAndDestroy.getInstance().getGame().getGameState() == GameState.LOBBY ) {
-            player.setGameMode( GameMode.ADVENTURE );
+            player.setGameMode( GameMode.SURVIVAL );
 
             player.teleport( SearchAndDestroy.getInstance().getGameConfig().getLobbySpawn() );
+
+            event.setJoinMessage( ChatColor.GRAY + "> " + ChatColor.GOLD + player.getName() + ChatColor.YELLOW + " tritt dem Spiel bei" );
         } else {
             player.setGameMode( GameMode.SPECTATOR );
 
@@ -48,9 +51,9 @@ public class PlayerJoinListener implements Listener {
             player.setFlying( true );
 
             player.addPotionEffect( new PotionEffect( PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, Integer.MAX_VALUE ) );
-        }
 
-        event.setJoinMessage( ChatColor.GRAY + "> " + ChatColor.GOLD + player.getName() + ChatColor.YELLOW + " tritt dem Spiel bei" );
+            event.setJoinMessage( null );
+        }
     }
 
 }

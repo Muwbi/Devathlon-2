@@ -46,7 +46,7 @@ public class MapConfig extends Config {
     @Getter
     private List<Location> bombLocations = new ArrayList<Location>() {{
         add( new Location( Bukkit.getWorld( "DevathlonMap" ), 18, 5, -42 ) );
-        add( new Location( Bukkit.getWorld( "DevathlonMap" ), -12, 5, -32 ) );
+        add( new Location( Bukkit.getWorld( "DevathlonMap" ), -13, 5, -33 ) );
     }};
 
     @Getter

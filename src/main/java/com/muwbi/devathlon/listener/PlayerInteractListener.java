@@ -1,21 +1,20 @@
 package com.muwbi.devathlon.listener;
 
 import com.muwbi.devathlon.SearchAndDestroy;
+import com.muwbi.devathlon.clazz.GameState;
 import com.muwbi.devathlon.clazz.Team;
-import com.muwbi.devathlon.config.GameConfig;
 import com.muwbi.devathlon.inventory.ShopInventory;
 import com.muwbi.devathlon.scheduler.DefuseTask;
-import org.bukkit.Bukkit;
+import com.muwbi.devathlon.scheduler.PlantTask;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
-
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by Muwbi
@@ -35,12 +34,29 @@ public class PlayerInteractListener implements Listener {
     public void onPlayerInteract( PlayerInteractEvent event ) {
         if ( event.hasItem() && event.getItem().getType() == Material.EMERALD && ( event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK ) ) {
             shopInventory.open( event.getPlayer() );
+        } else if ( Team.getTeam( event.getPlayer().getUniqueId() ) == Team.CT && event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getClickedBlock().getType() == Material.TNT ) {
+            final int defuseTime = SearchAndDestroy.getInstance().getGameConfig().getDefuseTime();
+
+            new DefuseTask( event.getPlayer(), event.getClickedBlock(), ( SearchAndDestroy.getInstance().getGame().getShopManager().hasDefusekit( event.getPlayer() ) ) ? defuseTime / 2 : defuseTime ).start();
+        } else if ( event.hasItem() && event.getItem().getType() == Material.TNT && event.getAction() == Action.RIGHT_CLICK_BLOCK ) {
+            Player bombCarrier = event.getPlayer();
+            Block blockPlaced = event.getClickedBlock().getWorld().getBlockAt( event.getClickedBlock().getLocation().add( 0, 1, 0 ) );
+
+            if ( SearchAndDestroy.getInstance().getGame().getGameState() == GameState.INGAME ) {
+                if ( Team.getTeam( bombCarrier.getUniqueId() ) == Team.T ) {
+                    if ( blockPlaced.getType() == Material.TNT ) {
+                        if ( SearchAndDestroy.getInstance().getGame().getMapConfig().getBombLocations().contains( blockPlaced.getLocation() ) ) {
+                            SearchAndDestroy.getInstance().getGame().setPlanting( true );
+                            blockPlaced.setType( Material.REDSTONE_BLOCK );
+
+                            new PlantTask( bombCarrier, blockPlaced ).start();
+                        }
+                    }
+                }
+            }
         }
 
-        final int defuseTime = (int) SearchAndDestroy.getInstance().getGameConfig().getDefuseTime();
-        if(event.hasItem() && event.getItem().getType() == Material.TNT && Team.getTeam(event.getPlayer().getUniqueId()) == Team.CT &&  event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            new DefuseTask( event.getPlayer(), event.getClickedBlock(), ( event.getPlayer().getInventory().getItem(7).getType() == Material.SHEARS ) ? defuseTime / 2 : defuseTime ).start();
-        }
+        event.setCancelled( true );
     }
 
 }

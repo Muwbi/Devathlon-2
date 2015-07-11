@@ -10,6 +10,7 @@ import net.cubespace.Yamler.Config.InvalidConfigurationException;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -75,6 +76,10 @@ public class SearchAndDestroy extends JavaPlugin {
         Bukkit.getScheduler().runTaskTimer( this, () -> {
             devathlonWorld.setTime( 6000 );
             devathlonMapWorld.setTime( 0 );
+
+            for ( Player player : Bukkit.getOnlinePlayers() ) {
+                player.setSaturation( 20 );
+            }
         }, 20, 20 );
 
         getLogger().info( "Devathlon and DevathlonMap loaded" );

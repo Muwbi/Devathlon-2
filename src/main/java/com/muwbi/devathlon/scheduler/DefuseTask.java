@@ -22,11 +22,12 @@ public class DefuseTask implements Runnable {
     private AtomicInteger counter;
     private BukkitTask task;
 
-    public DefuseTask( Player player, Block theBomb, int defuse) {
+    public DefuseTask( Player player, Block theBomb, int defuse ) {
         defuser = player;
         bomb = theBomb;
         defuseTime = defuse;
     }
+
     @Override
     public void run() {
         if ( SearchAndDestroy.getInstance().getGame().isPlanting() ) {
@@ -34,8 +35,8 @@ public class DefuseTask implements Runnable {
                 counter.incrementAndGet();
             } else if ( counter.get() == defuseTime ) {
                 bomb.setType( Material.REDSTONE_BLOCK );
-                Bukkit.broadcastMessage(ChatColor.GRAY + "> " + ChatColor.YELLOW + "Die Bombe wurde von " + ChatColor.GOLD + defuser.getName() + ChatColor.YELLOW + " entschärft!");
-                bomb.setType(Material.AIR);
+                Bukkit.broadcastMessage( ChatColor.GRAY + "> " + ChatColor.YELLOW + "Die Bombe wurde von " + ChatColor.GOLD + defuser.getName() + ChatColor.YELLOW + " entschärft!" );
+                bomb.setType( Material.AIR );
                 SearchAndDestroy.getInstance().getGame().setPlanting( false );
                 stop();
             }

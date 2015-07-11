@@ -33,7 +33,7 @@ public class WarmupCountdown implements Runnable {
     }
 
     public void start() {
-        bukkitTask = Bukkit.getScheduler().runTaskTimer( SearchAndDestroy.getInstance(), this, 20, 0 );
+        bukkitTask = Bukkit.getScheduler().runTaskTimer( SearchAndDestroy.getInstance(), this, 0, 20 );
     }
 
     public void stop() {

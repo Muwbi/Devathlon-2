@@ -13,11 +13,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitTask;
 
-import java.util.Iterator;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by Muwbi
@@ -39,10 +36,12 @@ public class GameStateChangeListener implements Listener {
             }
 
             final Random random = new Random();
-            Player bombCarrier = Bukkit.getPlayer( Team.T.getMembers().get( random.nextInt( Team.T.getMembers().size() + 1 ) ) );
+            Player bombCarrier = Bukkit.getPlayer( Team.T.getMembers().get( random.nextInt( Team.T.getMembers().size() ) ) );
             bombCarrier.getInventory().setItem( 4, ShopInventory.setLore( ShopInventory.setDisplayName( new ItemStack( Material.TNT ), ChatColor.RED + "Bombe" ), ChatColor.GRAY + "An einem Bombenplatz befestigen" ) );
 
             new WarmupCountdown( 5 ).start();
+        } else if ( event.getPreviousState() == GameState.WARMUP && event.getNewState() == GameState.INGAME ) {
+            Bukkit.broadcastMessage( ChatColor.GRAY + "> " + ChatColor.YELLOW + "Game is live!" );
         }
     }
 

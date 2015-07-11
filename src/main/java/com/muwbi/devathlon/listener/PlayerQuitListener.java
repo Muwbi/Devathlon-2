@@ -25,9 +25,9 @@ public class PlayerQuitListener implements Listener {
         Team team = Team.getTeam( uuid );
 
         GameState gameState = SearchAndDestroy.getInstance().getGame().getGameState();
-        if( Bukkit.getOnlinePlayers().size() < 2 ) {
+        if ( Bukkit.getOnlinePlayers().size() < 2 ) {
             if ( GameState.isIngame( gameState ) ) {
-                Bukkit.broadcastMessage(ChatColor.GRAY + "> " + ChatColor.YELLOW + "Das Team " + team.getTeamColor() + team.getOtherTeam(team).getFullTeamName() + ChatColor.YELLOW + " hat das Spiel gewonnen!");
+                Bukkit.broadcastMessage( ChatColor.GRAY + "> " + ChatColor.YELLOW + "Das Team " + team.getTeamColor() + team.getOtherTeam().getFullTeamName() + ChatColor.YELLOW + " hat das Spiel gewonnen!" );
                 Bukkit.getPluginManager().callEvent( new GameStateChangeEvent( gameState, GameState.LOBBY ) );
             }
         }

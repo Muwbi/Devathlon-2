@@ -25,7 +25,7 @@ public class GameConfig extends Config {
 
     @Getter
     @Comment( "Time needed to defuse the bomb (in seconds)" )
-    private double defuseTime = 5;
+    private int defuseTime = 5;
 
     public GameConfig() {
         CONFIG_FILE = new File( SearchAndDestroy.getInstance().getDataFolder(), "game.yml" );
