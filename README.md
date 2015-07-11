@@ -23,3 +23,9 @@ Ist dies der Fall, werden die Spieler auf eine Karte teleportiert und einem Team
 Für Tötungen und Platziernung der Bombe erhält man eine vorgesehene Anzahl Emeralds, mit diesen
 lassen sich Waffen und Upgrades kaufen.
 
+Libraries:
+- Maven
+- Lombok
+- Yamler
+- craftbukkit
+
