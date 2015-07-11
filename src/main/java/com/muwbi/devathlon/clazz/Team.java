@@ -27,6 +27,8 @@ public enum Team {
 
     private static Scoreboard scoreboard;
 
+    private static org.bukkit.scoreboard.Team spectatorTeam;
+
     @Getter
     private final org.bukkit.scoreboard.Team scoreboardTeam;
 
@@ -67,8 +69,6 @@ public enum Team {
         scoreboardTeam.addEntry( player.getName() );
 
         getPointsObjective().getScore( player.getName() ).setScore( 0 );
-
-        player.setScoreboard( getScoreboard() );
 
         SearchAndDestroy.getInstance().getGame().getShopManager().initialize( player );
 
@@ -123,7 +123,7 @@ public enum Team {
         }
     }
 
-    private static Scoreboard getScoreboard() {
+    public static Scoreboard getScoreboard() {
         if ( scoreboard == null ) {
             scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
@@ -133,6 +133,15 @@ public enum Team {
         }
 
         return scoreboard;
+    }
+
+    public static org.bukkit.scoreboard.Team getSpectatorTeam() {
+        if ( spectatorTeam == null ) {
+            spectatorTeam = getScoreboard().registerNewTeam( "spectator" );
+            spectatorTeam.setCanSeeFriendlyInvisibles( true );
+        }
+
+        return spectatorTeam;
     }
 
 }

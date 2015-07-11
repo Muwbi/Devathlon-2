@@ -58,20 +58,11 @@ public class ShopInventory implements Listener {
     }
 
     @EventHandler
-    public void onInventoryDrag( InventoryDragEvent event ) {
-        if ( openedInventories.contains( event.getWhoClicked().getUniqueId() ) ) {
-            event.setCancelled( true );
-        }
-    }
-
-    @EventHandler
     public void onInventoryClick( InventoryClickEvent event ) {
         if ( openedInventories.contains( event.getWhoClicked().getUniqueId() ) ) {
             if ( callbackMap.containsKey( event.getSlot() ) ) {
                 callbackMap.get( event.getSlot() ).done( (Player) event.getWhoClicked() );
             }
-
-            event.setCancelled( true );
         }
     }
 

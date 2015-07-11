@@ -1,5 +1,6 @@
 package com.muwbi.devathlon.listener;
 
+import com.muwbi.devathlon.SearchAndDestroy;
 import com.muwbi.devathlon.clazz.GameState;
 import com.muwbi.devathlon.clazz.Team;
 import com.muwbi.devathlon.event.GameStateChangeEvent;
@@ -12,6 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Iterator;
 import java.util.Random;
 
 /**
@@ -28,6 +30,14 @@ public class GameStateChangeListener implements Listener {
 
                 Bukkit.broadcastMessage( ChatColor.GRAY + "> " + ChatColor.GOLD + player.getName() + ChatColor.YELLOW + " schließt sich den " + team.getTeamColor() + team.getFullTeamName() + ChatColor.YELLOW + " an" );
             }
+
+            Iterator<? extends Player> playerIterator = Bukkit.getOnlinePlayers().iterator();
+            Bukkit.getScheduler().runTaskLater( SearchAndDestroy.getInstance(), () -> {
+                if ( playerIterator.hasNext() ) {
+                    Player player = playerIterator.next();
+                    player.teleport( SearchAndDestroy.getInstance().getGame().getMapConfig().getTeamSpawns().get( Team.getTeam( player.getUniqueId() ).name() ) );
+                }
+            }, 5 ); // to prevent invisibility bugs
 
             final Random random = new Random();
             Player bombCarrier = Bukkit.getPlayer( Team.T.getMembers().get( random.nextInt( Team.T.getMembers().size() + 1 ) ) );

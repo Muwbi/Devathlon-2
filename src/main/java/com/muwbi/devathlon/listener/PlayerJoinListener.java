@@ -2,12 +2,16 @@ package com.muwbi.devathlon.listener;
 
 import com.muwbi.devathlon.SearchAndDestroy;
 import com.muwbi.devathlon.clazz.GameState;
+import com.muwbi.devathlon.clazz.Team;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 /**
  * Created by Muwbi
@@ -22,10 +26,28 @@ public class PlayerJoinListener implements Listener {
         player.setHealth( player.getMaxHealth() );
         player.getActivePotionEffects().forEach( potionEffect -> player.removePotionEffect( potionEffect.getType() ) );
 
+        player.setScoreboard( Team.getScoreboard() );
+
         if ( SearchAndDestroy.getInstance().getGame().getGameState() == GameState.LOBBY ) {
             player.setGameMode( GameMode.ADVENTURE );
+
+            player.teleport( SearchAndDestroy.getInstance().getGameConfig().getLobbySpawn() );
         } else {
             player.setGameMode( GameMode.SPECTATOR );
+
+            // Maths magic
+            Location tSpawn = SearchAndDestroy.getInstance().getGame().getMapConfig().getTeamSpawns().get( "T" );
+            Location ctSpawn = SearchAndDestroy.getInstance().getGame().getMapConfig().getTeamSpawns().get( "CT" );
+
+            Location middle = new Location( tSpawn.getWorld(), ( tSpawn.getX() + ctSpawn.getX() ) / 2, tSpawn.getY() + 10, ( tSpawn.getZ() + ctSpawn.getZ() ) / 2 );
+            player.teleport( middle );
+
+            Team.getSpectatorTeam().addEntry( player.getName() );
+
+            player.setAllowFlight( true );
+            player.setFlying( true );
+
+            player.addPotionEffect( new PotionEffect( PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, Integer.MAX_VALUE ) );
         }
 
         event.setJoinMessage( ChatColor.GRAY + "> " + ChatColor.GOLD + player.getName() + ChatColor.YELLOW + " tritt dem Spiel bei" );
