@@ -7,6 +7,7 @@ import com.muwbi.devathlon.config.GameConfig;
 import com.muwbi.devathlon.config.MapConfig;
 import com.muwbi.devathlon.listener.*;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -38,6 +39,10 @@ public class SearchAndDestroy extends JavaPlugin {
 
     @Getter
     private GameConfig gameConfig;
+
+    @Getter
+    @Setter
+    private boolean planting;
 
     @Override
     public void onEnable() {
