@@ -1,7 +1,5 @@
 package com.muwbi.devathlon.listener;
 
-import com.muwbi.devathlon.SearchAndDestroy;
-import com.muwbi.devathlon.clazz.GameState;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -13,7 +11,6 @@ public class BlockPlaceListener implements Listener {
 
     @EventHandler
     public void onPlace( BlockPlaceEvent event ) {
-        GameState gameState = SearchAndDestroy.getInstance().getGame().getGameState();
         if ( !event.getPlayer().isOp() ) {
             event.setCancelled( true );
         }

@@ -6,6 +6,7 @@ import com.muwbi.devathlon.config.MapConfig;
 import com.muwbi.devathlon.listener.*;
 import lombok.Getter;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Scoreboard;
@@ -24,6 +25,12 @@ public class SearchAndDestroy extends JavaPlugin {
 
     @Getter
     private Game game;
+
+    @Getter
+    private Location firstBombLocation = new Location( Bukkit.getWorld("DevathlonMap"), 18, 5, -42 );
+
+    @Getter
+    private Location secondBombLocation = new Location( Bukkit.getWorld("DevathlonMap"), -12, 5, -32 );
 
     @Override
     public void onEnable() {

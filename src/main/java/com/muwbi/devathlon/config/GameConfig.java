@@ -17,6 +17,14 @@ public class GameConfig extends Config {
     private Location lobbySpawn;
 
     @Getter
+    @Comment( "Respawn location (CT)" )
+    private Location ctSpawn;
+
+    @Getter
+    @Comment( "Respawn location (T)" )
+    private Location tSpawn;
+
+    @Getter
     @Comment( "Enables/disables fall damage" )
     private boolean fallDamage;
 

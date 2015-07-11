@@ -96,6 +96,10 @@ public enum Team {
         return Team.T.getMembers().size() < Team.CT.getMembers().size() ? Team.T : Team.CT;
     }
 
+    public Team getOtherTeam(Team team) {
+        return team.getTeamName().equalsIgnoreCase("t") ? Team.CT : Team.T;
+    }
+
     public static boolean hasTeam( UUID uuid ) {
         return Team.T.getMembers().contains( uuid ) || Team.CT.getMembers().contains( uuid );
     }
