@@ -7,7 +7,7 @@ Devathlon-Projekt von:
 Beschreibung:
 Das Spiel Search'n'Destroy ist eine Mischung aus Counter Strike: Global Offensive und Call of Duty.
 Ziel ist es, als Terrorist (T) die Bombe zu planten und diese zu beschützen.
-Als Counter-Terrorist gilt es den Bombenplatz zu schützen, oder alle Terroristen auszulöschen.
+Als Counter-Terrorist (CT) gilt es den Bombenplatz zu schützen, oder alle Terroristen auszulöschen.
 
 Das Spiel ist vorbei, wenn eines der folgendes Szenarien eintritt:
 - Die Bombe ist explodiert
