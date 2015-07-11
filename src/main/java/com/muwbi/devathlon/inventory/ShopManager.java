@@ -18,9 +18,9 @@ public class ShopManager {
 
     enum SwordType {
 
-        WOOD( Material.WOOD_SWORD),
-        STONE(Material.STONE_SWORD),
-        IRON(Material.IRON_SWORD);
+        WOOD( Material.WOOD_SWORD ),
+        STONE( Material.STONE_SWORD ),
+        IRON( Material.IRON_SWORD );
 
         private final Material swordMaterial;
 
@@ -36,9 +36,9 @@ public class ShopManager {
 
     enum BowType {
 
-        NO_POWER(0),
-        POWER1(1),
-        POWER2(2);
+        NO_POWER( 0 ),
+        POWER1( 1 ),
+        POWER2( 2 );
 
         private static final Enchantment ENCHANTMENT = Enchantment.ARROW_DAMAGE;
 
@@ -51,7 +51,7 @@ public class ShopManager {
         public ItemStack getItemStack() {
             ItemStack itemStack = new ItemStack( Material.BOW, 1 );
 
-            if ( enchantmentLevel > 0) {
+            if ( enchantmentLevel > 0 ) {
                 itemStack.addEnchantment( ENCHANTMENT, enchantmentLevel );
             }
 

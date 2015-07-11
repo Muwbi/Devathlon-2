@@ -7,7 +7,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
@@ -44,7 +43,7 @@ public class ShopInventory implements Listener {
         inventory.setItem( slot, itemStack );
     }
 
-    public void addItem( int slot, ItemStack itemStack, Callback<Player> callback) {
+    public void addItem( int slot, ItemStack itemStack, Callback<Player> callback ) {
         addItem( slot, itemStack );
         callbackMap.put( slot, callback );
     }

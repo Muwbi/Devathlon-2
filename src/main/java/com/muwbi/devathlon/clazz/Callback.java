@@ -5,6 +5,6 @@ package com.muwbi.devathlon.clazz;
  */
 public interface Callback<T> {
 
-    public void done(T t);
+    public void done( T t );
 
 }
