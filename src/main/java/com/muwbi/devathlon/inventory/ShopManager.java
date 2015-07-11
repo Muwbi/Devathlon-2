@@ -79,7 +79,6 @@ public class ShopManager {
 
         player.getInventory().setItem( 0, swordTypeMap.get( uuid ).getItemStack() );
         player.getInventory().setItem( 1, bowTypeMap.get( uuid ).getItemStack() );
-        player.getInventory().setItem( 7, DEFUSEKIT );
     }
 
     public void upgradeSword( Player player ) {
@@ -157,6 +156,10 @@ public class ShopManager {
                 player.sendMessage( ChatColor.RED + "Dein Punktekonto ist leider nicht gedeckt. Punkte: " + ChatColor.YELLOW + getBalance( player ) );
             }
         }
+    }
+
+    public boolean hasDefusekit( Player player ) {
+        return defuseKitsMap.get( player.getUniqueId() );
     }
 
     private boolean hasBalance( Player player, int amount ) {

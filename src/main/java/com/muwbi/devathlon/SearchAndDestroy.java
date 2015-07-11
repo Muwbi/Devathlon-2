@@ -5,9 +5,8 @@ import com.muwbi.devathlon.clazz.Game;
 import com.muwbi.devathlon.command.GameStateCommand;
 import com.muwbi.devathlon.config.GameConfig;
 import com.muwbi.devathlon.config.MapConfig;
-import com.muwbi.devathlon.listener.*;
 import lombok.Getter;
-import lombok.Setter;
+import net.cubespace.Yamler.Config.InvalidConfigurationException;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -15,12 +14,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Scoreboard;
-import org.bukkit.util.FileUtil;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
 
 
 /**
@@ -39,10 +35,6 @@ public class SearchAndDestroy extends JavaPlugin {
 
     @Getter
     private GameConfig gameConfig;
-
-    @Getter
-    @Setter
-    private boolean planting;
 
     @Override
     public void onEnable() {
@@ -88,6 +80,11 @@ public class SearchAndDestroy extends JavaPlugin {
         getLogger().info( "Devathlon and DevathlonMap loaded" );
 
         gameConfig = new GameConfig();
+        try {
+            gameConfig.init();
+        } catch ( InvalidConfigurationException e ) {
+            e.printStackTrace();
+        }
 
         game = new Game( MapConfig.DEFAULT );
         System.out.println( "Loaded " + getDescription().getName() + " | Version: " + getDescription().getVersion() + " | Description: " + getDescription().getDescription() );

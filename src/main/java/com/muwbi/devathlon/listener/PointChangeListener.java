@@ -31,7 +31,7 @@ public class PointChangeListener implements Listener {
         Team.setPoints( uuid, newPoints );
 
         event.getPlayer().getInventory().setItem( 8, new ItemStack( Material.EMERALD, newPoints ) );
-        event.getPlayer().updateInventory();
+        event.getPlayer().updateInventory(); // refresh inventory
     }
 
 }

@@ -25,6 +25,10 @@ public class Game {
     @Getter
     private Team[] teams = new Team[]{Team.T, Team.CT};
 
+    @Getter
+    @Setter
+    private boolean planting = false;
+
     public Game( MapConfig config ) {
         mapConfig = config;
     }
@@ -39,6 +43,8 @@ public class Game {
 
         if ( index >= GameState.values().length ) {
             index = 0;
+        } else {
+            index++;
         }
 
         changeGameState( GameState.values()[index] );
