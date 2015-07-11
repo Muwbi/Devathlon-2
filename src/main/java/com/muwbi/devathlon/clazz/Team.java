@@ -1,8 +1,12 @@
 package com.muwbi.devathlon.clazz;
 
+import com.muwbi.devathlon.SearchAndDestroy;
+import com.muwbi.devathlon.event.PointChangeEvent;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
@@ -57,12 +61,18 @@ public enum Team {
             return false;
         }
 
+        Player player = Bukkit.getPlayer( uuid );
+
         members.add( uuid );
-        scoreboardTeam.addEntry( Bukkit.getPlayer( uuid ).getName() );
+        scoreboardTeam.addEntry( player.getName() );
 
-        getPointsObjective().getScore( Bukkit.getPlayer( uuid ).getName() ).setScore( 0 );
+        getPointsObjective().getScore( player.getName() ).setScore( 0 );
 
-        Bukkit.getPlayer( uuid ).setScoreboard( getScoreboard() );
+        player.setScoreboard( getScoreboard() );
+
+        SearchAndDestroy.getInstance().getGame().getShopManager().initialize( player );
+
+        Bukkit.getPluginManager().callEvent( new PointChangeEvent( player, 0 ) );
 
         return true;
     }

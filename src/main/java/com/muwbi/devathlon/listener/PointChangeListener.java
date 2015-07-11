@@ -23,7 +23,7 @@ public class PointChangeListener implements Listener {
         UUID uuid = event.getPlayer().getUniqueId();
 
         if ( !points.containsKey( uuid ) ) {
-            points.put( uuid, 0 );
+            points.put( uuid, 1 );
         }
 
         Integer newPoints = points.put( uuid, points.get( uuid ) + event.getValue() );

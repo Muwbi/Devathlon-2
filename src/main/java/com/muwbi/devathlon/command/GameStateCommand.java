@@ -26,10 +26,6 @@ public class GameStateCommand implements CommandExecutor {
                     case "ingame_planted":
                         gameState = GameState.valueOf( args[0].toUpperCase() );
                         break;
-                    case "addpoint":
-                        if ( commandSender instanceof Player ) {
-                            Team.addPoints( ( (Player) commandSender ).getUniqueId(), 3 );
-                        }
                     default:
                         gameState = GameState.LOBBY;
                         break;
