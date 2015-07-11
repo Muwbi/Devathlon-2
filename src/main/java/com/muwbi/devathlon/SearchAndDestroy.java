@@ -6,6 +6,7 @@ import com.muwbi.devathlon.config.GameConfig;
 import com.muwbi.devathlon.config.MapConfig;
 import com.muwbi.devathlon.listener.*;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -32,6 +33,10 @@ public class SearchAndDestroy extends JavaPlugin {
     @Getter
     private GameConfig gameConfig;
 
+    @Getter
+    @Setter
+    private boolean planting;
+
     @Override
     public void onEnable() {
         instance = this;
@@ -50,6 +55,7 @@ public class SearchAndDestroy extends JavaPlugin {
         pluginManager.registerEvents( new PointChangeListener(), this );
         pluginManager.registerEvents( new PlayerDeathListener(), this );
         pluginManager.registerEvents( new PlayerInteractListener(), this );
+        pluginManager.registerEvents( new PlayerMoveListener(), this );
 
         File lobbyFolder = new File( "Devathlon" );
         File mapFolder = new File( "DevathlonMap" );

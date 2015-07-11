@@ -14,6 +14,9 @@ import java.io.File;
 public class GameConfig extends Config {
 
     @Getter
+    private static GameConfig instance;
+
+    @Getter
     @Comment( "Spawn location for lobby phase" )
     private Location lobbySpawn;
 
