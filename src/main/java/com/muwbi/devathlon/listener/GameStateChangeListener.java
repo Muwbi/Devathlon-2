@@ -33,6 +33,8 @@ public class GameStateChangeListener implements Listener {
 
             for ( Player player : Bukkit.getOnlinePlayers() ) {
                 player.teleport( SearchAndDestroy.getInstance().getGame().getMapConfig().getTeamSpawns().get( Team.getTeam( player.getUniqueId() ).name() ) );
+                player.setHealth( player.getMaxHealth() );
+                player.setSaturation( 20 );
             }
 
             final Random random = new Random();
