@@ -3,11 +3,16 @@ package com.muwbi.devathlon.listener;
 import com.muwbi.devathlon.clazz.GameState;
 import com.muwbi.devathlon.clazz.Team;
 import com.muwbi.devathlon.event.GameStateChangeEvent;
+import com.muwbi.devathlon.inventory.ShopInventory;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.Random;
 
 /**
  * Created by Muwbi
@@ -23,6 +28,10 @@ public class GameStateChangeListener implements Listener {
 
                 Bukkit.broadcastMessage( ChatColor.GRAY + "> " + ChatColor.GOLD + player.getName() + ChatColor.YELLOW + " schließt sich den " + team.getTeamColor() + team.getFullTeamName() + ChatColor.YELLOW + " an" );
             }
+
+            final Random random = new Random();
+            Player bombCarrier = Bukkit.getPlayer( Team.T.getMembers().get( random.nextInt( Team.T.getMembers().size() + 1 ) ) );
+            bombCarrier.getInventory().setItem( 4, ShopInventory.setLore( ShopInventory.setDisplayName( new ItemStack( Material.TNT ), ChatColor.RED + "Bombe" ), ChatColor.GRAY + "An einem Bombenplatz befestigen" ) );
         }
     }
 
