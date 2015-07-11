@@ -30,7 +30,7 @@ public class DefuseTask implements Runnable {
 
     @Override
     public void run() {
-        if ( SearchAndDestroy.getInstance().getGame().isPlanting() ) {
+        if ( SearchAndDestroy.getInstance().getGame().isDefusing() ) {
             if ( counter.get() < defuseTime ) {
                 counter.incrementAndGet();
             } else if ( counter.get() == defuseTime ) {
