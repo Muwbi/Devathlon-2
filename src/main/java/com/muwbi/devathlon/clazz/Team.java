@@ -94,13 +94,13 @@ public enum Team {
         return Team.T.getMembers().contains( uuid ) ? Team.T : ( Team.CT.getMembers().contains( uuid ) ? Team.CT : null );
     }
 
-    public static void addPoints( UUID uuid, int value ) {
+    public static void setPoints( UUID uuid, int value ) {
         if ( !hasTeam( uuid ) ) {
             return;
         }
 
         Score score = getPointsObjective().getScore( Bukkit.getPlayer( uuid ).getName() );
-        score.setScore( score.getScore() + value );
+        score.setScore( value );
     }
 
     public static void clearTeam( UUID uuid ) {

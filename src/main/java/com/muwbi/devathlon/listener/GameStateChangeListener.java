@@ -12,7 +12,7 @@ public class GameStateChangeListener implements Listener {
 
     @EventHandler
     public void onGameStateChange( GameStateChangeEvent event ) {
-        Bukkit.broadcastMessage( "DEBUG: OLD: " + event.getPreviousState().name() + " NEW: " + event.getNewState().name() );
+
     }
 
 }

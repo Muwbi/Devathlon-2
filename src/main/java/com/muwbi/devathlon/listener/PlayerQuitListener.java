@@ -3,7 +3,7 @@ package com.muwbi.devathlon.listener;
 import com.muwbi.devathlon.SearchAndDestroy;
 import com.muwbi.devathlon.clazz.GameState;
 import com.muwbi.devathlon.clazz.Team;
-import net.md_5.bungee.api.ChatColor;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -12,7 +12,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import java.util.UUID;
 
 /**
- * Created by Gelox_ on 10.07.2015.
+ * Created by Gelox_
  */
 public class PlayerQuitListener implements Listener {
 
@@ -20,15 +20,18 @@ public class PlayerQuitListener implements Listener {
     public void onQuit( PlayerQuitEvent event ) {
         Player player = event.getPlayer();
         UUID uuid = player.getUniqueId();
+        Team team = Team.getTeam( uuid );
 
-        if ( Team.hasTeam( uuid ) ) {
-            Team.clearTeam( uuid );
-        }
 
         GameState gameState = SearchAndDestroy.getInstance().getGame().getGameState();
         if ( GameState.isIngame( gameState ) ) {
             //TODO: Win-Message
         }
-        event.setQuitMessage( ChatColor.GRAY + "> " + ChatColor.YELLOW + event.getPlayer().getName() + " hat das Spiel verlassen!" );
+
+        event.setQuitMessage( ChatColor.GRAY + "> " + ( team != null ? ( ChatColor.DARK_AQUA + "[" + team.getTeamColor() + team.toString() + ChatColor.DARK_AQUA + "] " ) : "" ) + ChatColor.GOLD + event.getPlayer().getName() + ChatColor.YELLOW + " hat das Spiel verlassen!" );
+
+        if ( Team.hasTeam( uuid ) ) {
+            Team.clearTeam( uuid );
+        }
     }
 }

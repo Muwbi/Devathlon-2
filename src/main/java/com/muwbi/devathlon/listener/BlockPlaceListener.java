@@ -14,7 +14,7 @@ public class BlockPlaceListener implements Listener {
     @EventHandler
     public void onPlace( BlockPlaceEvent event ) {
         GameState gameState = SearchAndDestroy.getInstance().getGame().getGameState();
-        if ( ( gameState == GameState.INGAME || gameState == GameState.INGAME_PLANTED || gameState == GameState.WARMUP ) && !event.getPlayer().isOp() ) {
+        if ( !event.getPlayer().isOp() ) {
             event.setCancelled( true );
         }
     }

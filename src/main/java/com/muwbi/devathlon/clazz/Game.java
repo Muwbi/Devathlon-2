@@ -2,6 +2,7 @@ package com.muwbi.devathlon.clazz;
 
 import com.muwbi.devathlon.config.MapConfig;
 import com.muwbi.devathlon.event.GameStateChangeEvent;
+import com.muwbi.devathlon.inventory.ShopManager;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -17,6 +18,9 @@ public class Game {
     @Getter
     @Setter
     private GameState gameState = GameState.LOBBY;
+
+    @Getter
+    private ShopManager shopManager = new ShopManager();
 
     @Getter
     private Team[] teams = new Team[]{Team.T, Team.CT};
