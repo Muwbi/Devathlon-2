@@ -29,6 +29,10 @@ public class Game {
     @Setter
     private boolean planting = false;
 
+    @Getter
+    @Setter
+    private boolean defusing = false;
+
     public Game( MapConfig config ) {
         mapConfig = config;
     }

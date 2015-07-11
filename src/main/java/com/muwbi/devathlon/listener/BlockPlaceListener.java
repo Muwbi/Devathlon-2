@@ -40,10 +40,9 @@ public class BlockPlaceListener implements Listener {
                     }
                 }
             }
-        }
-        if ( !event.getPlayer().isOp() ) {
-            event.setCancelled( true );
-        }
+        } else
+            if (!event.getPlayer().isOp())
+                event.setCancelled(true);
     }
 
 }

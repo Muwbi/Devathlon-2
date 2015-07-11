@@ -20,11 +20,18 @@ public class PlayerMoveListener implements Listener {
             if ( from.getBlockX() != to.getBlockX() || from.getBlockZ() != to.getBlockZ() ) {
                 event.getPlayer().teleport( from );
             }
-        } else if ( SearchAndDestroy.getInstance().getGame().getGameState() == GameState.INGAME ) {
+        } else if ( SearchAndDestroy.getInstance().getGame().getGameState() == GameState.INGAME && SearchAndDestroy.getInstance().getGame().isPlanting() ) {
             Location from = event.getFrom();
             Location to = event.getTo();
             if ( from.getBlockX() != to.getBlockX() || from.getBlockZ() != to.getBlockZ() ) {
                 SearchAndDestroy.getInstance().getGame().setPlanting( false );
+            }
+        }
+        else if ( SearchAndDestroy.getInstance().getGame().getGameState() == GameState.INGAME && SearchAndDestroy.getInstance().getGame().isDefusing() ) {
+            Location from = event.getFrom();
+            Location to = event.getTo();
+            if ( from.getBlockX() != to.getBlockX() || from.getBlockZ() != to.getBlockZ() ) {
+                SearchAndDestroy.getInstance().getGame().setDefusing( false );
             }
         }
     }

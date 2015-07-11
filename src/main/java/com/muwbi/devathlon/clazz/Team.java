@@ -5,6 +5,7 @@ import com.muwbi.devathlon.event.PointChangeEvent;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -68,9 +69,9 @@ public enum Team {
         members.add( uuid );
         scoreboardTeam.addEntry( player.getName() );
 
-        getPointsObjective().getScore( player.getName() ).setScore( 0 );
+        getPointsObjective().getScore( player.getName() ).setScore(0);
 
-        SearchAndDestroy.getInstance().getGame().getShopManager().initialize( player );
+        SearchAndDestroy.getInstance().getGame().getShopManager().initialize(player);
 
         Bukkit.getPluginManager().callEvent( new PointChangeEvent( player, 0 ) );
 
@@ -83,7 +84,7 @@ public enum Team {
         }
 
         members.remove( uuid );
-        scoreboardTeam.removeEntry( Bukkit.getPlayer( uuid ).getName() );
+        scoreboardTeam.removeEntry(Bukkit.getPlayer(uuid).getName());
 
         return true;
     }
@@ -138,7 +139,7 @@ public enum Team {
     public static org.bukkit.scoreboard.Team getSpectatorTeam() {
         if ( spectatorTeam == null ) {
             spectatorTeam = getScoreboard().registerNewTeam( "spectator" );
-            spectatorTeam.setCanSeeFriendlyInvisibles( true );
+            spectatorTeam.setCanSeeFriendlyInvisibles(true);
         }
 
         return spectatorTeam;
