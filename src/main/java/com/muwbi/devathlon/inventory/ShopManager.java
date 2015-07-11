@@ -1,6 +1,8 @@
 package com.muwbi.devathlon.inventory;
 
 import com.muwbi.devathlon.clazz.Team;
+import com.muwbi.devathlon.event.PointChangeEvent;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -60,15 +62,24 @@ public class ShopManager {
 
     }
 
+    private static final ItemStack DEFUSEKIT = ShopInventory.setLore( ShopInventory.setDisplayName( new ItemStack( Material.SHEARS ), ChatColor.RED + "Defusekit" ), ChatColor.GRAY + "Halbiert die benötigte Zeit zum Defusen" );
+
     private Map<UUID, SwordType> swordTypeMap = new HashMap<>();
     private Map<UUID, BowType> bowTypeMap = new HashMap<>();
     private Map<UUID, Boolean> defuseKitsMap = new HashMap<>();
 
     public void initialize( Player player ) {
         UUID uuid = player.getUniqueId();
+
+        player.getInventory().clear();
+
         swordTypeMap.put( uuid, SwordType.WOOD );
         bowTypeMap.put( uuid, BowType.NO_POWER );
         defuseKitsMap.put( uuid, false );
+
+        player.getInventory().setItem( 0, swordTypeMap.get( uuid ).getItemStack() );
+        player.getInventory().setItem( 1, bowTypeMap.get( uuid ).getItemStack() );
+        player.getInventory().setItem( 7, DEFUSEKIT );
     }
 
     public void upgradeSword( Player player ) {
@@ -121,7 +132,7 @@ public class ShopManager {
 
             bowTypeMap.put( player.getUniqueId(), bowType );
 
-            player.getInventory().setItem( 0, bowType.getItemStack() );
+            player.getInventory().setItem( 1, bowType.getItemStack() );
             player.updateInventory();
             player.sendMessage( ChatColor.GREEN + "Du hast das nächste Upgrade des Bogens gekauft. Punkte: " + ChatColor.YELLOW + getBalance( player ) );
         } else {
@@ -140,7 +151,7 @@ public class ShopManager {
 
                 defuseKitsMap.put( player.getUniqueId(), true );
 
-                player.getInventory().setItem( 7, new ItemStack( Material.SHEARS ) );
+                player.getInventory().setItem( 7, DEFUSEKIT );
                 player.sendMessage( ChatColor.GREEN + "Du hast ein Defusekit gekauft. Punkte: " + ChatColor.YELLOW + getBalance( player ) );
             } else {
                 player.sendMessage( ChatColor.RED + "Dein Punktekonto ist leider nicht gedeckt. Punkte: " + ChatColor.YELLOW + getBalance( player ) );
@@ -157,7 +168,7 @@ public class ShopManager {
     }
 
     private void withdrawBalance( Player player, int amount ) {
-        Team.setPoints( player.getUniqueId(), Team.getPointsObjective().getScore( player.getName() ).getScore() - amount );
+        Bukkit.getPluginManager().callEvent( new PointChangeEvent( player, -amount ) );
     }
 
 }

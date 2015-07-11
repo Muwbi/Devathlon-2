@@ -18,7 +18,7 @@ public class PlayerDeathListener implements Listener {
         Player dead = event.getEntity();
         Player culprit = dead.getKiller();
 
-        event.setDeathMessage( ChatColor.GOLD + dead.getName() + ChatColor.RED + " wurde von " + ChatColor.GOLD + culprit.getName() + ChatColor.RED + " getötet" );
+        event.setDeathMessage( ChatColor.GRAY + "> " + ChatColor.GOLD + dead.getName() + ChatColor.YELLOW + " wurde von " + ChatColor.GOLD + culprit.getName() + ChatColor.YELLOW + " getötet!" );
 
         Bukkit.getPluginManager().callEvent( new PointChangeEvent( culprit, 3 ) );
     }

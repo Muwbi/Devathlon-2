@@ -1,5 +1,6 @@
 package com.muwbi.devathlon.config;
 
+import com.muwbi.devathlon.SearchAndDestroy;
 import lombok.Getter;
 import net.cubespace.Yamler.Config.Comment;
 import net.cubespace.Yamler.Config.Config;
@@ -15,14 +16,6 @@ public class GameConfig extends Config {
     @Getter
     @Comment( "Spawn location for lobby phase" )
     private Location lobbySpawn;
-
-    @Getter
-    @Comment( "Respawn location (CT)" )
-    private Location ctSpawn;
-
-    @Getter
-    @Comment( "Respawn location (T)" )
-    private Location tSpawn;
 
     @Getter
     @Comment( "Enables/disables fall damage" )
@@ -41,7 +34,7 @@ public class GameConfig extends Config {
     private double defuseTime;
 
     public GameConfig() {
-        CONFIG_FILE = new File( "game.yml" );
+        CONFIG_FILE = new File( SearchAndDestroy.getInstance().getDataFolder(), "game.yml" );
     }
 
 }

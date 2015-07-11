@@ -97,7 +97,7 @@ public enum Team {
     }
 
     public Team getOtherTeam(Team team) {
-        return team.getTeamName().equalsIgnoreCase("t") ? Team.CT : Team.T;
+        return team == Team.T ? Team.CT : Team.T;
     }
 
     public static boolean hasTeam( UUID uuid ) {

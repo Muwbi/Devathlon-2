@@ -2,14 +2,17 @@ package com.muwbi.devathlon;
 
 import com.muwbi.devathlon.clazz.Game;
 import com.muwbi.devathlon.command.GameStateCommand;
+import com.muwbi.devathlon.config.GameConfig;
 import com.muwbi.devathlon.config.MapConfig;
 import com.muwbi.devathlon.listener.*;
 import lombok.Getter;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.util.FileUtil;
+
+import java.io.File;
 
 
 /**
@@ -27,10 +30,7 @@ public class SearchAndDestroy extends JavaPlugin {
     private Game game;
 
     @Getter
-    private Location firstBombLocation = new Location( Bukkit.getWorld("DevathlonMap"), 18, 5, -42 );
-
-    @Getter
-    private Location secondBombLocation = new Location( Bukkit.getWorld("DevathlonMap"), -12, 5, -32 );
+    private GameConfig gameConfig;
 
     @Override
     public void onEnable() {
@@ -50,6 +50,18 @@ public class SearchAndDestroy extends JavaPlugin {
         pluginManager.registerEvents( new PointChangeListener(), this );
         pluginManager.registerEvents( new PlayerDeathListener(), this );
         pluginManager.registerEvents( new PlayerInteractListener(), this );
+
+        File lobbyFolder = new File( "Devathlon" );
+        File mapFolder = new File( "DevathlonMap" );
+
+        if ( !lobbyFolder.exists() || !mapFolder.exists() ) {
+            getLogger().warning( "Devathlon or DevathlonMap does not exist. Disabling..." );
+            pluginManager.disablePlugin( this );
+        }
+
+        // TODO: Load map
+
+        gameConfig = new GameConfig();
 
         game = new Game( MapConfig.DEFAULT );
         System.out.println( "Loaded " + getDescription().getName() + " | Version: " + getDescription().getVersion() + " | Description: " + getDescription().getDescription() );

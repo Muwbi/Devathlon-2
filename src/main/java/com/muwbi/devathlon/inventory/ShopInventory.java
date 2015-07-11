@@ -12,6 +12,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
 
@@ -65,11 +66,31 @@ public class ShopInventory implements Listener {
 
     @EventHandler
     public void onInventoryClick( InventoryClickEvent event ) {
-        if ( callbackMap.containsKey( event.getSlot() ) ) {
-            callbackMap.get( event.getSlot() ).done( (Player) event.getWhoClicked() );
-        }
+        if ( openedInventories.contains( event.getWhoClicked().getUniqueId() ) ) {
+            if ( callbackMap.containsKey( event.getSlot() ) ) {
+                callbackMap.get( event.getSlot() ).done( (Player) event.getWhoClicked() );
+            }
 
-        event.setCancelled( true );
+            event.setCancelled( true );
+        }
+    }
+
+    public static ItemStack setDisplayName( ItemStack itemStack, String name ) {
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName( name );
+
+        itemStack.setItemMeta( itemMeta );
+
+        return itemStack;
+    }
+
+    public static ItemStack setLore( ItemStack itemStack, String... lores ) {
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setLore( Arrays.asList( lores ) );
+
+        itemStack.setItemMeta( itemMeta );
+
+        return itemStack;
     }
 
 }
