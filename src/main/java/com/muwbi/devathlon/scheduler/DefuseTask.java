@@ -37,7 +37,7 @@ public class DefuseTask implements Runnable {
                 bomb.setType( Material.REDSTONE_BLOCK );
                 Bukkit.broadcastMessage( ChatColor.GRAY + "> " + ChatColor.YELLOW + "Die Bombe wurde von " + ChatColor.GOLD + defuser.getName() + ChatColor.YELLOW + " entschärft!" );
                 bomb.setType( Material.AIR );
-                SearchAndDestroy.getInstance().getGame().setPlanting( false );
+                SearchAndDestroy.getInstance().getGame().setDefusing( false );
                 stop();
             }
         } else {

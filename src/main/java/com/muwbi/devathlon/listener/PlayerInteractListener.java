@@ -36,7 +36,7 @@ public class PlayerInteractListener implements Listener {
             shopInventory.open( event.getPlayer() );
         } else if ( Team.getTeam( event.getPlayer().getUniqueId() ) == Team.CT && event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getClickedBlock().getType() == Material.TNT ) {
             final int defuseTime = SearchAndDestroy.getInstance().getGameConfig().getDefuseTime();
-
+            SearchAndDestroy.getInstance().getGame().setDefusing(true);
             new DefuseTask( event.getPlayer(), event.getClickedBlock(), ( SearchAndDestroy.getInstance().getGame().getShopManager().hasDefusekit( event.getPlayer() ) ) ? defuseTime / 2 : defuseTime ).start();
         } else if ( event.hasItem() && event.getItem().getType() == Material.TNT && event.getAction() == Action.RIGHT_CLICK_BLOCK ) {
             Player bombCarrier = event.getPlayer();
@@ -48,7 +48,6 @@ public class PlayerInteractListener implements Listener {
                         if ( SearchAndDestroy.getInstance().getGame().getMapConfig().getBombLocations().contains( blockPlaced.getLocation() ) ) {
                             SearchAndDestroy.getInstance().getGame().setPlanting( true );
                             blockPlaced.setType( Material.REDSTONE_BLOCK );
-
                             new PlantTask( bombCarrier, blockPlaced ).start();
                         }
                     }
