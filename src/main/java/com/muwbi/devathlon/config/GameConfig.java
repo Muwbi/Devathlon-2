@@ -36,5 +36,4 @@ public class GameConfig extends Config {
             e.printStackTrace();
         }
     }
-
 }

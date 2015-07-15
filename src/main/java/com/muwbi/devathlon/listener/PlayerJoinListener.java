@@ -4,6 +4,7 @@ import com.muwbi.devathlon.SearchAndDestroy;
 import com.muwbi.devathlon.clazz.GameState;
 import com.muwbi.devathlon.clazz.Team;
 import com.muwbi.devathlon.event.GameStateChangeEvent;
+import com.muwbi.devathlon.scheduler.WarmupCountdown;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -39,8 +40,9 @@ public class PlayerJoinListener implements Listener {
             event.setJoinMessage( ChatColor.GRAY + "> " + ChatColor.GOLD + player.getName() + ChatColor.YELLOW + " tritt dem Spiel bei" );
 
             if( Bukkit.getOnlinePlayers().size() >= 2 ) {
-                Bukkit.getPluginManager().callEvent(new GameStateChangeEvent( SearchAndDestroy.getInstance().getGame().getGameState(), GameState.WARMUP ) );
+                Bukkit.getPluginManager().callEvent(new GameStateChangeEvent(SearchAndDestroy.getInstance().getGame().getGameState(), GameState.WARMUP));
             }
+
         } else {
             player.setGameMode( GameMode.SPECTATOR );
 

@@ -16,6 +16,7 @@ import java.util.UUID;
 /**
  * Created by Muwbi
  */
+
 public class ShopManager {
 
     enum SwordType {

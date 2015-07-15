@@ -72,6 +72,8 @@ public class SearchAndDestroy extends JavaPlugin {
 
         devathlonWorld.setGameRuleValue( "keepInventory", "true" );
         devathlonMapWorld.setGameRuleValue( "keepInventory", "true" );
+        devathlonWorld.setPVP(true);
+        devathlonMapWorld.setPVP(true);
 
         Bukkit.getScheduler().runTaskTimer( this, () -> {
             devathlonWorld.setTime( 6000 );
