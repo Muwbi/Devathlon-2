@@ -27,5 +27,5 @@ Libraries:
 - Maven
 - Lombok
 - Yamler
-- craftbukkit
+- spigot
 
